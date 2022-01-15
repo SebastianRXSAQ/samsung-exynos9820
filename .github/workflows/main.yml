@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        model: [ "G970F,G973F,G975F", "N970F,N975F" ]
+        model: [ "G970F,G973F,G975F,G970N,G973N,G975N,G977B,G977N", "N970F,N975F,N971N,N976B,N976N" ]
 
     steps:
       - uses: actions/checkout@v2
@@ -26,7 +26,7 @@ jobs:
           set -e -o pipefail
           ./cruelbuild config                    \
                        model=${{ matrix.model }} \
-                       name="SebastianSNRLCruel-v1.0" \
+                       name="SebastianSNRLv1.0"  \
                        toolchain=$TOOLCHAIN      \
                        +magisk=alpha             \
                        +nohardening              \
@@ -38,6 +38,7 @@ jobs:
                        +force_dex_wqhd           \
                        +morosound                \
                        +boeffla_wl_blocker       \
+                       +usb_serial               \
           2>&1 | tee config.info
 
       - name: Install gcc-aarch64-linux-gnu
